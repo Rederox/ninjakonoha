@@ -1,39 +1,28 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import connectDB from './config/database/database.js';
-// Charger les variables d'environnement à partir d'un fichier .env
+// src/index.js
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import jutsuScrollRoutes from "./routes/jutsuScroll.routes.js";
+import ninjaRoutes from "./routes/ninja.routes.js";
+import empruntRoutes from "./routes/emprunt.routes.js";
+
 dotenv.config();
 
-// Initialiser l'application Express
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware pour parser les requêtes JSON
 app.use(express.json());
 
-// Connexion à MongoDB
-// const connectDB = async () => {
-//     try {
-//         await mongoose.connect(process.env.MONGODB_URI);
-//         console.log('MongoDB connected');
-//     } catch (err) {
-//         console.error(`Error: ${err.message}`);
-//         process.exit(1); // Arrêter le serveur en cas d'échec de connexion
-//     }
-// };
-
-
-app.get('/', (req, res) => {
-    res.send('Bienvenue dans mon API');
-});
+// Gestion des versions de l'API
+app.use("/api/v1/jutsu-scrolls", jutsuScrollRoutes);
+app.use("/api/v1/ninjas", ninjaRoutes);
+app.use("/api/v1/emprunts", empruntRoutes);
 
 // Lancer le serveur et se connecter à la base de données
+const PORT = process.env.PORT || 3000;
 const startServer = async () => {
-    await connectDB();
-    app.listen(PORT, () => {
-        console.log(`Le serveur fonctionne sur le port ${PORT}`);
-    });
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`Le serveur fonctionne sur le port ${PORT}`);
+  });
 };
 
 startServer();
