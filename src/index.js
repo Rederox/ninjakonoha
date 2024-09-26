@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
 import connectDB from './config/database/database.js';
 // Charger les variables d'environnement à partir d'un fichier .env
 dotenv.config();
@@ -44,5 +45,7 @@ const empruntRoutes = require('./routes/empruntRoutes');
 app.use('/api/v1/jutsu-scrolls', jutsuScrollRoutes);
 app.use('/api/v1/ninjas', ninjaRoutes);
 app.use('/api/v1/emprunts', empruntRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 startServer();
