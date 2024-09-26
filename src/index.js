@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 import jutsuScrollRoutes from "./routes/jutsuScrollRoutes.js";
 import ninjaRoutes from "./routes/ninjaRoutes.js";
 import empruntRoutes from "./routes/empruntRoutes.js";
-import { swaggerUi, swaggerDocs } from "./swagger.js";
+import { swaggerUi, swaggerDocs } from "./config/swagger.js";
 
 dotenv.config();
 

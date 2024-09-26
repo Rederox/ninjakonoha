@@ -3,6 +3,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 // Configuration de Swagger
+// swagger.js
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -16,9 +17,27 @@ const swaggerOptions = {
         url: 'http://localhost:3000',
       },
     ],
+    components: {
+      schemas: {
+        JutsuScroll: {
+          type: 'object',
+          properties: {
+            title: {
+              type: 'string',
+              description: 'Title of the jutsu scroll',
+            },
+            description: {
+              type: 'string',
+              description: 'Description of the jutsu scroll',
+            },
+          },
+        },
+      },
+    },
   },
-  apis: ['./routes/*.js'],
+  apis: ['./src/routes/*.js'],
 };
+
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
