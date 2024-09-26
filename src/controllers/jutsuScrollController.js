@@ -1,6 +1,4 @@
-// /src/controllers/jutsuScroll.controller.js
-
-import JutsuScroll from "../models/jutsuScroll.model.js";
+import JutsuScroll from "../models/jutsuScrollModel.js";
 
 // Créer un nouveau parchemin
 export const createJutsuScroll = async (req, res) => {

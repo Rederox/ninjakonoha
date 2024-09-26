@@ -7,7 +7,8 @@ import {
   getNinjaById,
   updateNinja,
   deleteNinja,
-} from '../controllers/ninja.controller.js';
+  recommanderJutsus 
+} from '../controllers/ninjaController.js';
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.get('/', getNinjas);
 router.get('/:id', getNinjaById);
 router.put('/:id', updateNinja);
 router.delete('/:id', deleteNinja);
+router.get('/:id/recommandations', recommanderJutsus);
 
 export default router;

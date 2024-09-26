@@ -1,6 +1,6 @@
 // /src/controllers/emprunt.controller.js
 
-import Emprunt from "../models/emprunt.model.js";
+import Emprunt from "../models/empruntModel.js";
 
 // Créer un nouvel emprunt
 export const createEmprunt = async (req, res) => {
@@ -85,6 +85,63 @@ export const deleteEmprunt = async (req, res) => {
     await emprunt.remove();
     res.json({ message: "Emprunt supprimé avec succès" });
   } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export const emprunterJutsuScroll = async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const { ninjaId, jutsuScrollId, dateRetourPrevue, notes } = req.body;
+
+    // Vérifier la disponibilité du parchemin
+    const jutsuScroll = await JutsuScroll.findById(jutsuScrollId).session(session);
+    if (!jutsuScroll) {
+      throw new Error('Parchemin non trouvé');
+    }
+    if (jutsuScroll.quantite <= 0) {
+      throw new Error('Parchemin indisponible');
+    }
+
+    // Vérifier les limites d'emprunt du ninja
+    const ninja = await Ninja.findById(ninjaId).populate('historiqueEmprunts').session(session);
+    if (!ninja) {
+      throw new Error('Ninja non trouvé');
+    }
+
+    const empruntsEnCours = await Emprunt.countDocuments({
+      ninjaId: ninja._id,
+      statut: 'En cours',
+    }).session(session);
+
+    if (empruntsEnCours >= ninja.limiteEmprunts) {
+      throw new Error('Limite d\'emprunts atteinte');
+    }
+
+    // Créer l'emprunt
+    const emprunt = new Emprunt({
+      ninjaId,
+      jutsuScrollId,
+      dateRetourPrevue,
+      notes,
+    });
+
+    // Mettre à jour la quantité du parchemin
+    jutsuScroll.quantite -= 1;
+
+    // Sauvegarder les changements
+    await emprunt.save({ session });
+    await jutsuScroll.save({ session });
+
+    // Commit de la transaction
+    await session.commitTransaction();
+    session.endSession();
+
+    res.status(201).json(emprunt);
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     res.status(400).json({ error: error.message });
   }
 };

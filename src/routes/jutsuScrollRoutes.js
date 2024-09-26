@@ -14,7 +14,7 @@ import {
   getJutsuScrollById,
   updateJutsuScroll,
   deleteJutsuScroll,
-} from "../controllers/jutsuScroll.controller.js";
+} from "../controllers/jutsuScrollController.js";
 
 const router = express.Router();
 /**
