@@ -7,6 +7,7 @@ dotenv.config();
 
 // Initialiser l'application Express
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 // Middleware pour parser les requêtes JSON
@@ -35,5 +36,13 @@ const startServer = async () => {
         console.log(`Le serveur fonctionne sur le port ${PORT}`);
     });
 };
+
+const jutsuScrollRoutes = require('./routes/jutsuScrollRoutes');
+const ninjaRoutes = require('./routes/ninjaRoutes');
+const empruntRoutes = require('./routes/empruntRoutes');
+
+app.use('/api/v1/jutsu-scrolls', jutsuScrollRoutes);
+app.use('/api/v1/ninjas', ninjaRoutes);
+app.use('/api/v1/emprunts', empruntRoutes);
 
 startServer();
