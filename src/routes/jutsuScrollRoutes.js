@@ -1,5 +1,12 @@
 // /src/routes/jutsuScroll.routes.js
 
+/**
+ * @swagger
+ * tags:
+ *   name: JutsuScrolls
+ *   description: Gestion des parchemins de jutsu
+ */
+
 import express from "express";
 import {
   createJutsuScroll,
