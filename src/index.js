@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+import connectDB from './config/database/database.js';
 // Charger les variables d'environnement à partir d'un fichier .env
 dotenv.config();
 
@@ -13,18 +13,16 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Connexion à MongoDB
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log('MongoDB connected');
-    } catch (err) {
-        console.error(`Error: ${err.message}`);
-        process.exit(1); // Arrêter le serveur en cas d'échec de connexion
-    }
-};
+// const connectDB = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGODB_URI);
+//         console.log('MongoDB connected');
+//     } catch (err) {
+//         console.error(`Error: ${err.message}`);
+//         process.exit(1); // Arrêter le serveur en cas d'échec de connexion
+//     }
+// };
+
 
 app.get('/', (req, res) => {
     res.send('Bienvenue dans mon API');
