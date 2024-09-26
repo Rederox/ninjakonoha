@@ -1,0 +1,42 @@
+# Ignorer le dossier node_modules
+node_modules/
+
+# Ignorer les fichiers d'environnement
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorer les fichiers de cache
+.cache/
+dist/
+build/
+
+# Ignorer les fichiers de couverture de tests
+coverage/
+
+# Ignorer les fichiers de configuration spécifiques aux systèmes d'exploitation
+.DS_Store
+Thumbs.db
+
+# Ignorer les fichiers liés à l'IDE/éditeur
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignorer les fichiers de lock spécifiques à différents gestionnaires de paquets
+package-lock.json
+yarn.lock
+.pnpm-lock.yaml
+
+# Ignorer les fichiers générés par ESLint et Prettier
+.eslintcache
+.prettiercache
+
+# Ignorer les fichiers de compilation (si TypeScript est utilisé)
+*.tsbuildinfo
