@@ -1,9 +1,7 @@
-// swagger.js
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 // Configuration de Swagger
-// swagger.js
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -22,22 +20,107 @@ const swaggerOptions = {
         JutsuScroll: {
           type: 'object',
           properties: {
+            id: {
+              type: 'string',
+              description: 'ID auto-généré du rouleau de jutsu',
+            },
             title: {
               type: 'string',
-              description: 'Title of the jutsu scroll',
+              description: 'Titre du rouleau de jutsu',
             },
             description: {
               type: 'string',
-              description: 'Description of the jutsu scroll',
+              description: 'Description du rouleau de jutsu',
+            },
+            jutsuType: {
+              type: 'string',
+              description: 'Type de jutsu (ex: Ninjutsu, Genjutsu, Taijutsu)',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Date de création du rouleau',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Date de dernière mise à jour du rouleau',
+            },
+          },
+        },
+        Ninja: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'ID auto-généré du ninja',
+            },
+            name: {
+              type: 'string',
+              description: 'Nom du ninja',
+            },
+            rank: {
+              type: 'string',
+              description: 'Rang du ninja (ex: Genin, Chunin, Jonin)',
+            },
+            age: {
+              type: 'integer',
+              description: 'Âge du ninja',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Date de création du ninja',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Date de dernière mise à jour du ninja',
+            },
+          },
+        },
+        Emprunt: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'ID auto-généré de l\'emprunt',
+            },
+            userId: {
+              type: 'string',
+              description: 'ID de l\'utilisateur qui emprunte',
+            },
+            bookId: {
+              type: 'string',
+              description: 'ID du livre ou du rouleau emprunté',
+            },
+            dateEmprunt: {
+              type: 'string',
+              format: 'date',
+              description: 'Date de l\'emprunt',
+            },
+            dateRetour: {
+              type: 'string',
+              format: 'date',
+              description: 'Date prévue de retour',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Date de création de l\'emprunt',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Date de dernière mise à jour de l\'emprunt',
             },
           },
         },
       },
     },
   },
-  apis: ['./src/routes/*.js'],
+  apis: ['./src/routes/*.js'], // Chemin vers vos fichiers de routes où Swagger JSDoc extrait les annotations
 };
-
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
