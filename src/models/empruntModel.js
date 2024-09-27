@@ -108,28 +108,28 @@ EmpruntSchema.statics.findEmpruntsEnRetard = function () {
 // Middleware post mise à jour du statut
 EmpruntSchema.post('findOneAndUpdate', async function (doc, next) {
     if (doc.statut === 'Terminé') {
-      // Remettre à jour la quantité du parchemin
-      const jutsuScroll = await mongoose.model('JutsuScroll').findById(doc.jutsuScrollId);
-      if (jutsuScroll) {
-        jutsuScroll.quantite += 1;
-        await jutsuScroll.save();
-  
-        // Vérifier s'il y a des réservations en attente
-        const reservation = await mongoose
-          .model('Reservation')
-          .findOne({ jutsuScrollId: jutsuScroll._id, statut: 'En attente' })
-          .sort('dateReservation');
-  
-        if (reservation) {
-          // Notifier le ninja (ici, on met à jour le statut, mais on pourrait envoyer un email)
-          reservation.statut = 'Notifié';
-          await reservation.save();
-          // Logique supplémentaire pour notifier le ninja
+        // Remettre à jour la quantité du parchemin
+        const jutsuScroll = await mongoose.model('JutsuScroll').findById(doc.jutsuScrollId);
+        if (jutsuScroll) {
+            jutsuScroll.quantite += 1;
+            await jutsuScroll.save();
+
+            // Vérifier s'il y a des réservations en attente
+            const reservation = await mongoose
+                .model('Reservation')
+                .findOne({ jutsuScrollId: jutsuScroll._id, statut: 'En attente' })
+                .sort('dateReservation');
+
+            if (reservation) {
+                // Notifier le ninja (ici, on met à jour le statut, mais on pourrait envoyer un email)
+                reservation.statut = 'Notifié';
+                await reservation.save();
+                // Logique supplémentaire pour notifier le ninja
+            }
         }
-      }
     }
     next();
-  });
+});
 
-  
+
 export default mongoose.model("Emprunt", EmpruntSchema);
