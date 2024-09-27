@@ -141,6 +141,47 @@ router.put('/:id', updateEmprunt);
  *         description: Emprunt not found
  */
 router.delete('/:id', deleteEmprunt);
+
+/**
+ * @swagger
+ * /emprunter:
+ *   post:
+ *     summary: Emprunter un rouleau de jutsu
+ *     tags: [Emprunts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: "ID de l'utilisateur qui emprunte le rouleau"
+ *               jutsuScrollId:
+ *                 type: string
+ *                 description: "ID du rouleau de jutsu à emprunter"
+ *             required:
+ *               - userId
+ *               - jutsuScrollId
+ *     responses:
+ *       201:
+ *         description: Emprunt créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: "Message de confirmation"
+ *                 emprunt:
+ *                   $ref: '#/components/schemas/Emprunt'
+ *       400:
+ *         description: Requête invalide
+ *       404:
+ *         description: Rouleau de jutsu ou utilisateur non trouvé
+ */
 router.post('/emprunter', emprunterJutsuScroll);
 
 export default router;

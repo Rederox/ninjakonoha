@@ -116,6 +116,53 @@ const swaggerOptions = {
             },
           },
         },
+        Reservation: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'ID auto-généré de la réservation',
+            },
+            userId: {
+              type: 'string',
+              description: 'ID de l\'utilisateur qui réserve',
+            },
+            jutsuScrollId: {
+              type: 'string',
+              description: 'ID du rouleau de jutsu réservé',
+            },
+            reservationDate: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Date de la réservation',
+            },
+            isNotified: {
+              type: 'boolean',
+              description: 'Indique si l\'utilisateur a été notifié',
+            },
+          },
+        },
+        JutsuOfTheMonth: {
+          type: 'object',
+          properties: {
+            jutsuTitle: {
+              type: 'string',
+              description: 'Le titre du jutsu du mois',
+            },
+            jutsuType: {
+              type: 'string',
+              description: 'Type de jutsu (ex: Ninjutsu, Genjutsu, Taijutsu)',
+            },
+            borrowCount: {
+              type: 'integer',
+              description: 'Nombre d\'emprunts de ce jutsu durant le mois',
+            },
+            jutsuScrollId: {
+              type: 'string',
+              description: 'ID du rouleau de jutsu correspondant',
+            },
+          },
+        },
       },
     },
   },
