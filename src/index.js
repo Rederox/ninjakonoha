@@ -21,11 +21,11 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Gestion des versions de l'API
-app.use("/jutsu-scrolls", jutsuScrollRoutes);
+app.use("/jutsu-scrolls", authenticateJWT, jutsuScrollRoutes);
 app.use("/ninjas", authenticateJWT,  ninjaRoutes);
-app.use("/emprunts", empruntRoutes);
-app.use('/reservations', reservationRoutes);
-app.use('/statistiques', statistiquesRoutes);
+app.use("/emprunts", authenticateJWT, empruntRoutes);
+app.use('/reservations', authenticateJWT, reservationRoutes);
+app.use('/statistiques', authenticateJWT, statistiquesRoutes);
 app.use('/auth', authentificationRoutes);
 
 app.get('/protected', authenticateJWT, (req, res) => {
