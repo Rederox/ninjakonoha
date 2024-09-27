@@ -1,11 +1,10 @@
-// /src/routes/ninja.routes.js
-
 /**
  * @swagger
  * tags:
  *   name: Ninjas
- *   description: Gestion des ninjas
+ *   description: "Gestion des ninjas"
  */
+
 import express from 'express';
 import {
   createNinja,
@@ -20,9 +19,55 @@ const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Ninja:
+ *       type: object
+ *       required:
+ *         - nom
+ *         - rang
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: "ID auto-généré du ninja"
+ *         nom:
+ *           type: string
+ *           description: "Nom du ninja"
+ *         rang:
+ *           type: string
+ *           enum: ["Genin", "Chunin", "Jonin", "Anbu", "Kage"]
+ *           description: "Le rang du ninja"
+ *         jutsus_maitrises:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: "Liste des jutsus maîtrisés par le ninja"
+ *         clan:
+ *           type: string
+ *           description: "Clan du ninja (facultatif)"
+ *         specialite:
+ *           type: string
+ *           description: "Spécialité du ninja (facultatif)"
+ *         historiqueEmprunts:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: "Liste des IDs des emprunts effectués par le ninja"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: "Date de création du ninja"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: "Date de dernière mise à jour du ninja"
+ */
+
+/**
+ * @swagger
  * /ninjas/:
  *   post:
- *     summary: Create a new ninja
+ *     summary: Créer un nouveau ninja
  *     tags: [Ninjas]
  *     requestBody:
  *       required: true
@@ -32,13 +77,13 @@ const router = express.Router();
  *             $ref: '#/components/schemas/Ninja'
  *     responses:
  *       201:
- *         description: Ninja created successfully
+ *         description: Ninja créé avec succès
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Ninja'
  *       400:
- *         description: Bad request
+ *         description: Requête invalide
  */
 router.post('/', createNinja);
 
@@ -46,11 +91,11 @@ router.post('/', createNinja);
  * @swagger
  * /ninjas/:
  *   get:
- *     summary: Get all ninjas
+ *     summary: Obtenir tous les ninjas
  *     tags: [Ninjas]
  *     responses:
  *       200:
- *         description: List of all ninjas
+ *         description: Liste de tous les ninjas
  *         content:
  *           application/json:
  *             schema:
@@ -58,7 +103,7 @@ router.post('/', createNinja);
  *               items:
  *                 $ref: '#/components/schemas/Ninja'
  *       500:
- *         description: Server error
+ *         description: Erreur du serveur
  */
 router.get('/', getNinjas);
 
@@ -66,24 +111,24 @@ router.get('/', getNinjas);
  * @swagger
  * /ninjas/{id}:
  *   get:
- *     summary: Get ninja by ID
+ *     summary: Obtenir un ninja par ID
  *     tags: [Ninjas]
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
- *         description: The ninja ID
+ *         description: ID du ninja
  *     responses:
  *       200:
- *         description: Ninja found
+ *         description: Ninja trouvé
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Ninja'
  *       404:
- *         description: Ninja not found
+ *         description: Ninja non trouvé
  */
 router.get('/:id', getNinjaById);
 
@@ -91,15 +136,15 @@ router.get('/:id', getNinjaById);
  * @swagger
  * /ninjas/{id}:
  *   put:
- *     summary: Update ninja by ID
+ *     summary: Mettre à jour un ninja par ID
  *     tags: [Ninjas]
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
- *         description: The ninja ID
+ *         description: ID du ninja
  *     requestBody:
  *       required: true
  *       content:
@@ -108,15 +153,15 @@ router.get('/:id', getNinjaById);
  *             $ref: '#/components/schemas/Ninja'
  *     responses:
  *       200:
- *         description: Ninja updated successfully
+ *         description: Ninja mis à jour avec succès
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Ninja'
  *       400:
- *         description: Bad request
+ *         description: Requête invalide
  *       404:
- *         description: Ninja not found
+ *         description: Ninja non trouvé
  */
 router.put('/:id', updateNinja);
 
@@ -124,20 +169,20 @@ router.put('/:id', updateNinja);
  * @swagger
  * /ninjas/{id}:
  *   delete:
- *     summary: Delete ninja by ID
+ *     summary: Supprimer un ninja par ID
  *     tags: [Ninjas]
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
- *         description: The ninja ID
+ *         description: ID du ninja
  *     responses:
  *       200:
- *         description: Ninja deleted successfully
+ *         description: Ninja supprimé avec succès
  *       404:
- *         description: Ninja not found
+ *         description: Ninja non trouvé
  */
 router.delete('/:id', deleteNinja);
 
@@ -182,3 +227,4 @@ router.delete('/:id', deleteNinja);
 router.get('/:id/recommandations', recommanderJutsus);
 
 export default router;
+

@@ -1,5 +1,3 @@
-// /src/routes/emprunt.routes.js
-
 /**
  * @swagger
  * tags:
@@ -21,9 +19,54 @@ const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Emprunt:
+ *       type: object
+ *       required:
+ *         - ninjaId
+ *         - jutsuScrollId
+ *         - dateRetourPrevue
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: ID auto-généré de l'emprunt
+ *         ninjaId:
+ *           type: string
+ *           description: ID du ninja qui a emprunté
+ *         jutsuScrollId:
+ *           type: string
+ *           description: ID du rouleau de jutsu emprunté
+ *         dateEmprunt:
+ *           type: string
+ *           format: date-time
+ *           description: Date à laquelle l'emprunt a été effectué
+ *         dateRetourPrevue:
+ *           type: string
+ *           format: date-time
+ *           description: Date prévue pour le retour de l'emprunt
+ *         statut:
+ *           type: string
+ *           enum: ["En cours", "Terminé", "En retard"]
+ *           description: Statut de l'emprunt
+ *         notes:
+ *           type: string
+ *           description: Notes éventuelles liées à l'emprunt
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date de création de l'emprunt
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date de dernière mise à jour de l'emprunt
+ */
+
+/**
+ * @swagger
  * /emprunts/:
  *   post:
- *     summary: Create a new emprunt
+ *     summary: Créer un nouvel emprunt
  *     tags: [Emprunts]
  *     requestBody:
  *       required: true
@@ -33,13 +76,13 @@ const router = express.Router();
  *             $ref: '#/components/schemas/Emprunt'
  *     responses:
  *       201:
- *         description: Emprunt created successfully
+ *         description: Emprunt créé avec succès
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Emprunt'
  *       400:
- *         description: Bad request
+ *         description: Requête invalide
  */
 router.post('/', createEmprunt);
 
@@ -47,11 +90,11 @@ router.post('/', createEmprunt);
  * @swagger
  * /emprunts/:
  *   get:
- *     summary: Get all emprunts
+ *     summary: Obtenir tous les emprunts
  *     tags: [Emprunts]
  *     responses:
  *       200:
- *         description: A list of emprunts
+ *         description: Liste de tous les emprunts
  *         content:
  *           application/json:
  *             schema:
@@ -59,7 +102,7 @@ router.post('/', createEmprunt);
  *               items:
  *                 $ref: '#/components/schemas/Emprunt'
  *       500:
- *         description: Server error
+ *         description: Erreur du serveur
  */
 router.get('/', getEmprunt);
 
@@ -67,7 +110,7 @@ router.get('/', getEmprunt);
  * @swagger
  * /emprunts/{id}:
  *   get:
- *     summary: Get an emprunt by ID
+ *     summary: Obtenir un emprunt par ID
  *     tags: [Emprunts]
  *     parameters:
  *       - in: path
@@ -75,16 +118,16 @@ router.get('/', getEmprunt);
  *         required: true
  *         schema:
  *           type: string
- *         description: The emprunt ID
+ *         description: ID de l'emprunt
  *     responses:
  *       200:
- *         description: Emprunt found
+ *         description: Emprunt trouvé
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Emprunt'
  *       404:
- *         description: Emprunt not found
+ *         description: Emprunt non trouvé
  */
 router.get('/:id', getEmpruntById);
 
@@ -92,7 +135,7 @@ router.get('/:id', getEmpruntById);
  * @swagger
  * /emprunts/{id}:
  *   put:
- *     summary: Update an emprunt by ID
+ *     summary: Mettre à jour un emprunt par ID
  *     tags: [Emprunts]
  *     parameters:
  *       - in: path
@@ -100,7 +143,7 @@ router.get('/:id', getEmpruntById);
  *         required: true
  *         schema:
  *           type: string
- *         description: The emprunt ID
+ *         description: ID de l'emprunt
  *     requestBody:
  *       required: true
  *       content:
@@ -109,15 +152,15 @@ router.get('/:id', getEmpruntById);
  *             $ref: '#/components/schemas/Emprunt'
  *     responses:
  *       200:
- *         description: Emprunt updated
+ *         description: Emprunt mis à jour avec succès
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Emprunt'
  *       400:
- *         description: Bad request
+ *         description: Requête invalide
  *       404:
- *         description: Emprunt not found
+ *         description: Emprunt non trouvé
  */
 router.put('/:id', updateEmprunt);
 
@@ -125,7 +168,7 @@ router.put('/:id', updateEmprunt);
  * @swagger
  * /emprunts/{id}:
  *   delete:
- *     summary: Delete an emprunt by ID
+ *     summary: Supprimer un emprunt par ID
  *     tags: [Emprunts]
  *     parameters:
  *       - in: path
@@ -133,12 +176,12 @@ router.put('/:id', updateEmprunt);
  *         required: true
  *         schema:
  *           type: string
- *         description: The emprunt ID
+ *         description: ID de l'emprunt
  *     responses:
  *       200:
- *         description: Emprunt deleted
+ *         description: Emprunt supprimé avec succès
  *       404:
- *         description: Emprunt not found
+ *         description: Emprunt non trouvé
  */
 router.delete('/:id', deleteEmprunt);
 
@@ -185,3 +228,4 @@ router.delete('/:id', deleteEmprunt);
 router.post('/emprunter', emprunterJutsuScroll);
 
 export default router;
+

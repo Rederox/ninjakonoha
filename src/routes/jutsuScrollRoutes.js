@@ -1,14 +1,12 @@
-// src/routes/jutsuScrollRoutes.js
-
 /**
  * @swagger
  * tags:
  *   name: JutsuScrolls
- *   description: Gestion des parchemins de jutsu
+ *   description: "Gestion des parchemins de jutsu"
  */
 
 import express from "express";
-import {
+import { 
   createJutsuScroll,
   getJutsuScrolls,
   getJutsuScrollById,
@@ -20,9 +18,60 @@ const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     JutsuScroll:
+ *       type: object
+ *       required:
+ *         - nom
+ *         - createur
+ *         - rang
+ *         - quantite
+ *         - categorie
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: "ID auto-généré du parchemin de jutsu"
+ *         nom:
+ *           type: string
+ *           description: "Nom du rouleau de jutsu"
+ *         createur:
+ *           type: string
+ *           description: "Nom du créateur du jutsu"
+ *         rang:
+ *           type: string
+ *           enum: ["D", "C", "B", "A", "S"]
+ *           description: "Le rang du jutsu (D étant le plus bas, S le plus élevé)"
+ *         quantite:
+ *           type: integer
+ *           description: "Quantité disponible de ce rouleau"
+ *         description:
+ *           type: string
+ *           description: "Description du jutsu (maximum 500 caractères)"
+ *         categorie:
+ *           type: string
+ *           enum: ["Ninjutsu", "Taijutsu", "Genjutsu", "Kinjutsu", "Fuinjutsu"]
+ *           description: "Catégorie du jutsu"
+ *         techniquesAssociees:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: "Techniques associées à ce rouleau de jutsu"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: "Date de création du parchemin"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: "Date de dernière mise à jour du parchemin"
+ */
+
+/**
+ * @swagger
  * /jutsu-scrolls/:
  *   post:
- *     summary: Create a new jutsu scroll
+ *     summary: Créer un nouveau parchemin de jutsu
  *     tags: [JutsuScrolls]
  *     requestBody:
  *       required: true
@@ -32,13 +81,13 @@ const router = express.Router();
  *             $ref: '#/components/schemas/JutsuScroll'
  *     responses:
  *       201:
- *         description: Jutsu scroll created
+ *         description: "Jutsu scroll créé avec succès"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/JutsuScroll'
  *       400:
- *         description: Bad request
+ *         description: "Requête invalide"
  */
 router.post("/", createJutsuScroll);
 
@@ -46,11 +95,11 @@ router.post("/", createJutsuScroll);
  * @swagger
  * /jutsu-scrolls/:
  *   get:
- *     summary: Get all jutsu scrolls
+ *     summary: Récupérer tous les parchemins de jutsu
  *     tags: [JutsuScrolls]
  *     responses:
  *       200:
- *         description: A list of jutsu scrolls
+ *         description: "Liste des parchemins de jutsu"
  *         content:
  *           application/json:
  *             schema:
@@ -58,7 +107,7 @@ router.post("/", createJutsuScroll);
  *               items:
  *                 $ref: '#/components/schemas/JutsuScroll'
  *       500:
- *         description: Server error
+ *         description: "Erreur du serveur"
  */
 router.get("/", getJutsuScrolls);
 
@@ -66,24 +115,24 @@ router.get("/", getJutsuScrolls);
  * @swagger
  * /jutsu-scrolls/{id}:
  *   get:
- *     summary: Get a jutsu scroll by ID
+ *     summary: Récupérer un parchemin de jutsu par ID
  *     tags: [JutsuScrolls]
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
  *         schema:
  *           type: string
- *         description: The jutsu scroll ID
+ *         description: "ID du parchemin de jutsu"
  *     responses:
  *       200:
- *         description: Jutsu scroll retrieved
+ *         description: "Parchemin de jutsu récupéré"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/JutsuScroll'
  *       404:
- *         description: Jutsu scroll not found
+ *         description: "Parchemin de jutsu non trouvé"
  */
 router.get("/:id", getJutsuScrollById);
 
@@ -91,15 +140,15 @@ router.get("/:id", getJutsuScrollById);
  * @swagger
  * /jutsu-scrolls/{id}:
  *   put:
- *     summary: Update a jutsu scroll by ID
+ *     summary: Mettre à jour un parchemin de jutsu par ID
  *     tags: [JutsuScrolls]
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
  *         schema:
  *           type: string
- *         description: The jutsu scroll ID
+ *         description: "ID du parchemin de jutsu"
  *     requestBody:
  *       required: true
  *       content:
@@ -108,15 +157,15 @@ router.get("/:id", getJutsuScrollById);
  *             $ref: '#/components/schemas/JutsuScroll'
  *     responses:
  *       200:
- *         description: Jutsu scroll updated
+ *         description: "Parchemin de jutsu mis à jour"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/JutsuScroll'
  *       400:
- *         description: Bad request
+ *         description: "Requête invalide"
  *       404:
- *         description: Jutsu scroll not found
+ *         description: "Parchemin de jutsu non trouvé"
  */
 router.put("/:id", updateJutsuScroll);
 
@@ -124,20 +173,20 @@ router.put("/:id", updateJutsuScroll);
  * @swagger
  * /jutsu-scrolls/{id}:
  *   delete:
- *     summary: Delete a jutsu scroll by ID
+ *     summary: Supprimer un parchemin de jutsu par ID
  *     tags: [JutsuScrolls]
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
  *         schema:
  *           type: string
- *         description: The jutsu scroll ID
+ *         description: "ID du parchemin de jutsu"
  *     responses:
  *       200:
- *         description: Jutsu scroll deleted
+ *         description: "Parchemin de jutsu supprimé"
  *       404:
- *         description: Jutsu scroll not found
+ *         description: "Parchemin de jutsu non trouvé"
  */
 router.delete("/:id", deleteJutsuScroll);
 
