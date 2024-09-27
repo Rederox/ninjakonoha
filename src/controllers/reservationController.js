@@ -27,3 +27,34 @@ export const reserverJutsuScroll = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+// Obtenir toutes les réservations
+export const getReservations = async (req, res) => {
+    try {
+        const reservations = await Reservation.find()
+            .populate('ninjaId', 'nom') // Remplacez 'nom' par le champ approprié dans votre modèle Ninja
+            .populate('jutsuScrollId', 'titre'); // Remplacez 'titre' par le champ approprié dans votre modèle JutsuScroll
+
+        res.status(200).json(reservations);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Obtenir une réservation par ID
+export const getReservationById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const reservation = await Reservation.findById(id)
+            .populate('ninjaId', 'nom')
+            .populate('jutsuScrollId', 'titre');
+
+        if (!reservation) {
+            return res.status(404).json({ error: 'Réservation non trouvée' });
+        }
+
+        res.status(200).json(reservation);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};

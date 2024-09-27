@@ -6,7 +6,7 @@
  */
 
 import express from 'express';
-import { reserverJutsuScroll } from '../controllers/reservationController.js';
+import { reserverJutsuScroll, getReservations, getReservationById } from '../controllers/reservationController.js';
 
 const router = express.Router();
 
@@ -89,6 +89,53 @@ const router = express.Router();
  */
 
 router.post('/', reserverJutsuScroll);
+
+/**
+ * @swagger
+ * /reservations/:
+ *   get:
+ *     summary: Obtenir la liste des réservations
+ *     tags: [Reservations]
+ *     responses:
+ *       200:
+ *         description: "Liste des réservations récupérée avec succès"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Reservation'
+ *       400:
+ *         description: "Erreur lors de la récupération des réservations"
+ */
+router.get('/', getReservations);
+
+/**
+ * @swagger
+ * /reservations/{id}:
+ *   get:
+ *     summary: Obtenir une réservation par ID
+ *     tags: [Reservations]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la réservation
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: "Réservation récupérée avec succès"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Reservation'
+ *       400:
+ *         description: "Erreur lors de la récupération de la réservation"
+ *       404:
+ *         description: "Réservation non trouvée"
+ */
+router.get('/:id', getReservationById);
 
 export default router;
 

@@ -52,8 +52,8 @@ const calculerJutsuDuMois = async () => {
     }
 };
 
-// Planifier la tâche le 1er de chaque mois à 00h05
-cron.schedule('5 0 1 * *', () => {
+// Planifier la tâche le 1er de chaque mois à 00h05 "5 0 1 * * "
+cron.schedule('* * * * *', () => {
     console.log('Calcul du jutsu du mois');
     calculerJutsuDuMois();
 });

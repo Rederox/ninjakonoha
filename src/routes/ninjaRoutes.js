@@ -188,7 +188,7 @@ router.delete('/:id', deleteNinja);
 
 /**
  * @swagger
- * /recommandations/{id}:
+ * /ninjas/{id}/recommandations:
  *   get:
  *     summary: Obtenir des recommandations de jutsus
  *     tags: [Recommandations]
@@ -219,7 +219,7 @@ router.delete('/:id', deleteNinja);
  *                   jutsuType:
  *                     type: string
  *                     description: "Type de jutsu recommandé (ex: Ninjutsu, Genjutsu, Taijutsu)"
- *       400:
+ *       400: 
  *         description: Requête invalide ou ID incorrect
  *       404:
  *         description: Utilisateur ou recommandations non trouvées
