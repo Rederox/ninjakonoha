@@ -68,15 +68,15 @@ const jutsuScrollsData = [
 const utilisateurData = [
     {
         nom_utilisateur: "NUzumaki",
-        mot_de_passe: "123",
+        mot_de_passe: "$2b$10$SfODk8KnLTElFBRwgGtX8u3yk1yh4DZvh/FSpuNFA96Sr6r7PbLde", // mot de passe 'test'
     },
     {
         nom_utilisateur: "SUchiua",
-        mot_de_passe: "123",
+        mot_de_passe: "$2b$10$SfODk8KnLTElFBRwgGtX8u3yk1yh4DZvh/FSpuNFA96Sr6r7PbLde",
     },
     {
         nom_utilisateur: "KAtaque",
-        mot_de_passe: "123",
+        mot_de_passe: "$2b$10$SfODk8KnLTElFBRwgGtX8u3yk1yh4DZvh/FSpuNFA96Sr6r7PbLde",
     },
 ];
 

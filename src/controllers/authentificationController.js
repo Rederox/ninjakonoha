@@ -1,6 +1,7 @@
 
 import Utilisateur from "../models/utilisateurModel.js";
 import { generateJWT } from "../utils/gestionJWT.js";
+import bcrypt from 'bcrypt';
 
 // se connecter avec un ID
 export const login = async (req, res) => {
