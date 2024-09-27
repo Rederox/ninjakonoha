@@ -68,6 +68,19 @@ const swaggerOptions = {
             },
           },
         },
+        Utilisateur: {
+          type: 'object',
+          properties: {
+            nom_utilisateur: {
+              type: 'string',
+              description: 'Nom de l\'utilisateur',
+            },
+            mot_de_passe: {
+              type: 'string',
+              description: 'Mot de passe de l\'utilisateur',
+            },
+          },
+        },
         Authentification: {
           type: 'object',
           properties: {

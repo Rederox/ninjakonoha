@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import Ninja from "../models/ninjaModel.js";
 import JutsuScroll from "../models/jutsuScrollModel.js";
 import Emprunt from "../models/empruntModel.js";
+import Utilisateur from "../models/utilisateurModel.js";
 
 dotenv.config();
 
@@ -64,6 +65,21 @@ const jutsuScrollsData = [
     },
 ];
 
+const utilisateurData = [
+    {
+        nom_utilisateur: "NUzumaki",
+        mot_de_passe: "123",
+    },
+    {
+        nom_utilisateur: "SUchiua",
+        mot_de_passe: "123",
+    },
+    {
+        nom_utilisateur: "KAtaque",
+        mot_de_passe: "123",
+    },
+];
+
 // Fonction principale pour migrer les données
 const migrateData = async () => {
     try {
@@ -86,6 +102,10 @@ const migrateData = async () => {
         // Insérer les ninjas
         const ninjas = await Ninja.insertMany(ninjasData);
         console.log("Ninjas insérés");
+
+        // Insérer les utilisateurs
+        const utilisateur = await Utilisateur.insertMany(utilisateurData);
+        console.log('Utilisateurs insérés');
 
         // Créer des emprunts fictifs
         const empruntsData = [
