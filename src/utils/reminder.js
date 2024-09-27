@@ -25,7 +25,7 @@ const sendReminders = async () => {
 };
 
 // Planifier la tâche tous les jours à minuit
-cron.schedule('0 0 * * *', () => {
+cron.schedule('* * * * *', () => {
     console.log('Exécution du rappel automatique');
     sendReminders();
 });
