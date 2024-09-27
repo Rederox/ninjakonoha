@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "format": "prettier --write 'src/**/*.{js,ts}'",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "migration" : "node src/utils/migration.js"
   },
   "author": "",
   "license": "ISC",
