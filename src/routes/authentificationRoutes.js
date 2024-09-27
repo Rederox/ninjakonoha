@@ -13,16 +13,18 @@ const router = express.Router();
 
 /**
  * @swagger
- * /authentification/:
+ * /auth/login/{id}:
+ *  
  *   post:
  *     summary: Authentificate
  *     tags: [Authentification]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Authentification'
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "ID du ninja"
  *     responses:
  *       201:
  *         description: Authentification succefully

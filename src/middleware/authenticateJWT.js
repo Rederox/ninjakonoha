@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 const authenticateJWT = (req, res, next) => {
     const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];
 
+    console.log(token);
     if (!token) {
         return res.status(401).json({ message: 'Accès refusé. Aucun token fourni.' });
     }

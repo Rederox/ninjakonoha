@@ -15,7 +15,22 @@ const swaggerOptions = {
         url: 'http://localhost:3000',
       },
     ],
+    security: [
+      {
+        bearerAuth: [], // Appliquer le schéma de sécurité à toutes les routes
+      },
+    ],
+    
     components: {
+      
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // Format du token (optionnel)
+        },
+      },
+
       schemas: {
         JutsuScroll: {
           type: 'object',
@@ -50,6 +65,15 @@ const swaggerOptions = {
             id: {
               type: 'string',
               description: 'ID auto-généré de la réservation',
+            },
+          },
+        },
+        Authentification: {
+          type: 'object',
+          properties: {
+            token: { 
+              type: 'string',
+              description: 'Le token JWT utilisé pour l\'authentification',
             },
           },
         },
